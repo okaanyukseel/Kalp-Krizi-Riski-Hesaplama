@@ -42,8 +42,8 @@ X_test_scaled = scaler.transform(X_test)
 #1.Yapay sinir ağları
 print('Model 1: Yapay Sinir Ağları')
 model = Sequential()
-model.add(Dense(16, input_dim=X_train_scaled.shape[1] ,activation = 'relu'))
-model.add(Dense(16, input_dim=X_train_scaled.shape[1] ,activation = 'relu'))
+model.add(Dense(128, input_dim=X_train_scaled.shape[1] ,activation = 'relu'))
+model.add(Dense(64, input_dim=X_train_scaled.shape[1] ,activation = 'relu'))
 model.add(Dense(1, activation='sigmoid'))
 #modeli derleyelim
 optimizer = Adam(learning_rate=0.001)
