@@ -51,9 +51,31 @@ model.add(Dense(1, activation='sigmoid'))
 optimizer = Adam(learning_rate=0.001)
 model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
-model.fit(X_train_scaled, y_train_smote, epochs=50, verbose=1, validation_data=(X_test_scaled, y_test))
+# Modeli eğit, history'yi al
+history = model.fit(X_train_scaled, y_train_smote, epochs=50, verbose=1, validation_data=(X_test_scaled, y_test))
 loss, accuracy = model.evaluate(X_test_scaled, y_test)
 y_pred_nn = (model.predict(X_test_scaled) > 0.5).astype("int32")
+
+# Eğitim ve test doğruluk & kayıp grafiği
+plt.figure(figsize=(14, 5))
+
+plt.subplot(1, 2, 1)
+plt.plot(history.history['accuracy'], label='Eğitim Doğruluğu')
+plt.plot(history.history['val_accuracy'], label='Test Doğruluğu')
+plt.title('Model Doğruluğu')
+plt.xlabel('Epoch')
+plt.ylabel('Doğruluk')
+plt.legend()
+
+plt.subplot(1, 2, 2)
+plt.plot(history.history['loss'], label='Eğitim Kaybı')
+plt.plot(history.history['val_loss'], label='Test Kaybı')
+plt.title('Model Kaybı')
+plt.xlabel('Epoch')
+plt.ylabel('Kayıp')
+plt.legend()
+
+plt.show()
 
 # Model 2: Random Forest
 print('Model 2: Random Forest')
