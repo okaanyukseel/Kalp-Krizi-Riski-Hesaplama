@@ -10,7 +10,7 @@ df = pd.read_csv('heart.csv')
 # print(df.isnull().sum())
 #kategorik sütunlar
 
-categorical_columns = ['ChestPainType','Sex','RestingBP','ExerciseAngina','ST_Slope']
+categorical_columns = ['ChestPainType','Sex','RestingECG','ExerciseAngina','ST_Slope']
 #Label ile bu sütunları sayısal hale getirelim
 
 le = LabelEncoder()

@@ -35,7 +35,7 @@ Her iki model scripti de aynı temel akışı izler:
 
 ### `model1.py`
 
-- YSA: `Dense(128, relu)` → `Dense(64, relu)` → `Dense(1, sigmoid)`, Adam (`learning_rate=0.001`), `binary_crossentropy`, 50 epoch.
+- YSA: `Dense(128, relu)` → `Dense(64, relu)` → `Dense(1, sigmoid)`, Adam (`learning_rate=0.001`), `binary_crossentropy`, 50 epoch, eğitim verisinin %20'si doğrulama için ayrılır (`validation_split=0.2`).
 - SMOTE `random_state=42`, Lojistik Regresyon `max_iter=1000`.
 - Görselleştirmeler (matplotlib):
   - YSA eğitim/test doğruluk ve kayıp grafikleri
@@ -44,7 +44,7 @@ Her iki model scripti de aynı temel akışı izler:
 
 ### `modeltest.py`
 
-- YSA: `Dense(16, relu)` → `Dense(1, sigmoid)`, Adam (`learning_rate=0.001`), 100 epoch.
+- YSA: `Dense(16, relu)` → `Dense(1, sigmoid)`, Adam (`learning_rate=0.001`), 100 epoch, `validation_split=0.2`.
 - SMOTE `random_state=1`.
 - Yalnızca dört modelin test doğruluk oranlarını yazdırır (grafik yok).
 

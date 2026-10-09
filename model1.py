@@ -52,7 +52,7 @@ optimizer = Adam(learning_rate=0.001)
 model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
 # Modeli eğit, history'yi al
-history = model.fit(X_train_scaled, y_train_smote, epochs=50, verbose=1, validation_data=(X_test_scaled, y_test))
+history = model.fit(X_train_scaled, y_train_smote, epochs=50, verbose=1, validation_split=0.2)
 loss, accuracy = model.evaluate(X_test_scaled, y_test)
 y_pred_nn = (model.predict(X_test_scaled) > 0.5).astype("int32")
 
@@ -61,7 +61,7 @@ plt.figure(figsize=(14, 5))
 
 plt.subplot(1, 2, 1)
 plt.plot(history.history['accuracy'], label='Eğitim Doğruluğu')
-plt.plot(history.history['val_accuracy'], label='Test Doğruluğu')
+plt.plot(history.history['val_accuracy'], label='Doğrulama Doğruluğu')
 plt.title('Model Doğruluğu')
 plt.xlabel('Epoch')
 plt.ylabel('Doğruluk')
@@ -69,7 +69,7 @@ plt.legend()
 
 plt.subplot(1, 2, 2)
 plt.plot(history.history['loss'], label='Eğitim Kaybı')
-plt.plot(history.history['val_loss'], label='Test Kaybı')
+plt.plot(history.history['val_loss'], label='Doğrulama Kaybı')
 plt.title('Model Kaybı')
 plt.xlabel('Epoch')
 plt.ylabel('Kayıp')
@@ -80,21 +80,21 @@ plt.show()
 # Model 2: Random Forest
 print('Model 2: Random Forest')
 rf_model = RandomForestClassifier(random_state=42)
-rf_model.fit(X_train_smote, y_train_smote)
+rf_model.fit(X_train_scaled, y_train_smote)
 y_pred_rf = rf_model.predict(X_test_scaled)
 rf_accuracy = accuracy_score(y_test, y_pred_rf)
 
 # Model 3: Karar Ağaçları
 print('Model 3: Karar Ağaçları')
 dt_model = DecisionTreeClassifier(random_state=42)
-dt_model.fit(X_train_smote, y_train_smote)
+dt_model.fit(X_train_scaled, y_train_smote)
 y_pred_dt = dt_model.predict(X_test_scaled)
 dt_accuracy = accuracy_score(y_test, y_pred_dt)
 
 # Model 4: Lojistik Regresyon
 print('Model 4: Lojistik Regresyon')
 lr_model = LogisticRegression(random_state=42, max_iter=1000)
-lr_model.fit(X_train_smote, y_train_smote)
+lr_model.fit(X_train_scaled, y_train_smote)
 y_pred_lr = lr_model.predict(X_test_scaled)
 lr_accuracy = accuracy_score(y_test, y_pred_lr)
 

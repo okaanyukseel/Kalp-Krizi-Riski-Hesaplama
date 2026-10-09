@@ -50,7 +50,7 @@ optimizer = Adam(learning_rate=0.001)
 model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
 # Modeli eğitelim
-model.fit(X_train_scaled, y_train_smote, epochs=100, verbose=1, validation_data=(X_test_scaled, y_test))
+model.fit(X_train_scaled, y_train_smote, epochs=100, verbose=1, validation_split=0.2)
 
 # Test doğruluğu
 loss, accuracy = model.evaluate(X_test_scaled, y_test)
@@ -59,7 +59,7 @@ loss, accuracy = model.evaluate(X_test_scaled, y_test)
 # 2. Random Forest Modeli
 print('Model 2: Random Forest')
 rf_model = RandomForestClassifier(random_state=42)
-rf_model.fit(X_train_smote, y_train_smote)
+rf_model.fit(X_train_scaled, y_train_smote)
 y_pred_rf = rf_model.predict(X_test_scaled)
 rf_accuracy = accuracy_score(y_test, y_pred_rf)
 
@@ -67,7 +67,7 @@ rf_accuracy = accuracy_score(y_test, y_pred_rf)
 # 3. Karar Ağaçları Modeli
 print('Model 3: Karar Ağaçları')
 dt_model = DecisionTreeClassifier(random_state=42)
-dt_model.fit(X_train_smote, y_train_smote)
+dt_model.fit(X_train_scaled, y_train_smote)
 y_pred_dt = dt_model.predict(X_test_scaled)
 dt_accuracy = accuracy_score(y_test, y_pred_dt)
 
@@ -75,7 +75,7 @@ dt_accuracy = accuracy_score(y_test, y_pred_dt)
 # 4. Lojistik Regresyon Modeli
 print('Model 4: Lojistik Regresyon')
 lr_model = LogisticRegression(random_state=42)
-lr_model.fit(X_train_smote, y_train_smote)
+lr_model.fit(X_train_scaled, y_train_smote)
 y_pred_lr = lr_model.predict(X_test_scaled)
 lr_accuracy = accuracy_score(y_test, y_pred_lr)
 
